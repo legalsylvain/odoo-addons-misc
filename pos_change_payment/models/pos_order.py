@@ -44,8 +44,8 @@ class PosOrder(Model):
             for k, v in new_payments.items():
                 self.add_payment(cr, uid, po.id, {
                     'statement_id': k,
-                    'amount': v
-                    }, context=context)
+                    'amount': v,
+                }, context=context)
 
     # Overload Section
     def action_paid(self, cr, uid, ids, context=None):
