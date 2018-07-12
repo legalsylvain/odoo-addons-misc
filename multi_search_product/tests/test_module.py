@@ -87,6 +87,22 @@ class TestModule(TransactionCase):
             ensabled_feature_search_unordered, initial_search + 1,
             "Multi search in unordered mode failed.")
 
+    def test_04_update_database(self):
+        # Create Product
+        vals = {
+            'name': self.name_with_separator,
+            'categ_id': self.product_category.id,
+        }
+        product = self.product_obj.create(vals)
+
+        # Enable and disable mechanism
+        self._enable_settings(True)
+        self._enable_settings(False)
+        self.assertEqual(
+            product.name, self.name_without_separator,
+            "Enable multi search should remove the special character"
+            " from the current database.")
+
     def _enable_settings(self, enable):
         setting = self.setting_obj.create({})
         if enable:
